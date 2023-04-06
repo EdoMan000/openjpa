@@ -151,12 +151,6 @@
                             </archive>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>attach-tests</id>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
