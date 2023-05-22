@@ -31,8 +31,8 @@ jobs:
       - name: Set up JDK 8.0.372 temurin
         uses: actions/setup-java@v3
         with:
-          java-version: 8.0.372
-          distribution: 'temurin'
+          java-version: 8
+          distribution: 'zulu'
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
