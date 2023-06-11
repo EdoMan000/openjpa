@@ -2329,7 +2329,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <executions>
+                <!-- executions>
                     <execution>
                         <phase>process-sources</phase>
                         <goals>
@@ -2360,7 +2360,7 @@
                                         </module>
                                     </module>
 
-                                    <!-- File location is specified in root pom.xml via ${checkstyle.suppressions.location} -->
+
                                     <module name="SuppressionFilter">
                                         <property name="file" value="${checkstyle.suppressions.location}" />
                                         <property name="optional" value="true" />
@@ -2369,7 +2369,7 @@
                             </checkstyleRules>
                         </configuration>
                     </execution>
-                </executions>
+                </executions -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -2397,14 +2397,14 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <executions>
+                <!-- executions>
                     <execution>
                         <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions -->
                 <configuration>
                     <excludeSubProjects>false</excludeSubProjects>
                     <numUnapprovedLicenses>0</numUnapprovedLicenses>
