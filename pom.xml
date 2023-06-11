@@ -44,12 +44,14 @@
         <!-- SonarCloud additions -->
         <sonar.organization>edoman000</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.scanner.force-deprecated-java-version>true</sonar.scanner.force-deprecated-java-version>
 
         <!-- JaCoCo additions -->
         <sonar.coverage.jacoco.xmlReportPaths>../tests/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
         <!-- Mockito additions -->
         <mockito.version>3.12.4</mockito.version>
+        <powermock.version>2.0.9</powermock.version>
 
         <doclint>none</doclint>
 
@@ -1759,16 +1761,14 @@
         <profile>
             <id>JaCoCoCoverage</id>
             <activation>
-                <property>
-                    <name>!skipJaCoCoCoverage</name>
-                </property>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.8</version>
+                        <version>0.8.10</version>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
@@ -1776,6 +1776,17 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                             </execution>
+                            <!-- execution>
+                              <id>prepare-agent-integration</id>
+                              <phase>package</phase>
+                              <goals>
+                                <goal>prepare-agent-integration</goal>
+                              </goals>
+                              <configuration>
+                                <append>true</append>
+                                <destFile>target/tests/...</destFile>
+                              </configuration>
+                            </execution -->
                         </executions>
                     </plugin>
                 </plugins>
@@ -1952,6 +1963,16 @@
                 <artifactId>mockito-inline</artifactId>
                 <version>${mockito.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito2</artifactId>
+                <version>${powermock.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${powermock.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -1970,11 +1991,25 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
             <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
