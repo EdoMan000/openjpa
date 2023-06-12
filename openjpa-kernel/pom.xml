@@ -252,6 +252,7 @@
                             </targetClasses>
                             <targetTests>
                                 <param>org.apache.openjpa.util.CacheMapPuttingTest</param>
+                                <param>org.apache.openjpa.util.CacheMapRemovingTest</param>
                             </targetTests>
                             <avoidCallsTo>
                                 <avoidCallsTo>org.slf4j</avoidCallsTo>
