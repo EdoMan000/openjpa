@@ -32,9 +32,9 @@ public class CacheMapRemovingTest {
         INVALID
     }
 
-    public CacheMapRemovingTest(PutInputTuple putInputTuple) {
-        this.stateOfKey = putInputTuple.stateOfKey();
-        this.isKeyPinned = putInputTuple.isKeyPinned();
+    public CacheMapRemovingTest(RemoveInputTuple removeInputTuple) {
+        this.stateOfKey = removeInputTuple.stateOfKey();
+        this.isKeyPinned = removeInputTuple.isKeyPinned();
         this.existingValue = new Object();
     }
 
@@ -45,26 +45,26 @@ public class CacheMapRemovingTest {
      * Object key: null, existent_key, not_existent_key, invalid_obj<br>
      */
     @Parameterized.Parameters
-    public static Collection<PutInputTuple> getReadInputTuples() {
-        List<PutInputTuple> putInputTupleList = new ArrayList<>();
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.NULL, false));              //[1]
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.EXISTENT, false));          //[2]
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.NOT_EXISTENT, false));      //[3]
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.INVALID, false));           //[4]
+    public static Collection<RemoveInputTuple> getRemoveInputTuples() {
+        List<RemoveInputTuple> removeInputTupleList = new ArrayList<>();
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.NULL, false));              //[1]
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.EXISTENT, false));          //[2]
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.NOT_EXISTENT, false));      //[3]
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.INVALID, false));           //[4]
         //AFTER JACOCO REPORT
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.NULL, true));              //[5]
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.EXISTENT, true));          //[6]
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.NOT_EXISTENT, true));      //[7]
-        putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.INVALID, true));           //[8]
-        return  putInputTupleList;
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.NULL, true));              //[5]
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.EXISTENT, true));          //[6]
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.NOT_EXISTENT, true));      //[7]
+        removeInputTupleList.add(new RemoveInputTuple(STATE_OF_KEY.INVALID, true));           //[8]
+        return removeInputTupleList;
     }
 
-    private static final class PutInputTuple {
+    private static final class RemoveInputTuple {
         private final STATE_OF_KEY stateOfKey;
         private final boolean isKeyPinned;
 
-        private PutInputTuple(STATE_OF_KEY stateOfKey,
-                              boolean isKeyPinned) {
+        private RemoveInputTuple(STATE_OF_KEY stateOfKey,
+                                 boolean isKeyPinned) {
             this.stateOfKey = stateOfKey;
             this.isKeyPinned = isKeyPinned;
         }
@@ -103,7 +103,7 @@ public class CacheMapRemovingTest {
     }
 
     @Test
-    public void remove() {
+    public void removingTest() {
         Object deletedVal = this.cacheMap.remove(this.key);
         if(this.stateOfKey == STATE_OF_KEY.EXISTENT) {
             verify(this.cacheMap).entryRemoved(this.key, deletedVal, false);

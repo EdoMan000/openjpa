@@ -58,7 +58,7 @@ public class CacheMapPuttingTest {
      * Object value: null, valid_obj, invalid_obj<br>
      */
     @Parameterized.Parameters
-    public static Collection<PutInputTuple> getReadInputTuples() {
+    public static Collection<PutInputTuple> getPutInputTuples() {
         List<PutInputTuple> putInputTupleList = new ArrayList<>();
         putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.NULL, false, STATE_OF_VALUE.VALID));              //[1]
         putInputTupleList.add(new PutInputTuple(STATE_OF_KEY.NULL, false, STATE_OF_VALUE.NULL));               //[2]
@@ -145,7 +145,7 @@ public class CacheMapPuttingTest {
     }
 
     @Test
-    public void put() {
+    public void puttingTest() {
         Object retVal = this.cacheMap.put(this.key, this.value);
         if(this.stateOfKey == STATE_OF_KEY.NOT_EXISTENT){
             verify(this.cacheMap).entryAdded(this.key, this.value);

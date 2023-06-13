@@ -2827,7 +2827,7 @@ Examples:
 item.cost * 1.08 &lt;= 100.00
 </programlisting>
 <programlisting>
-CONCAT(person.lastName, ‘, ’, person.firstName)) = ‘Jones, Sam’
+CONCAT(thisIsAProxyablePerson.lastName, ‘, ’, thisIsAProxyablePerson.firstName)) = ‘Jones, Sam’
 </programlisting>
 <programlisting>
 TYPE(e) = ExemptEmployee

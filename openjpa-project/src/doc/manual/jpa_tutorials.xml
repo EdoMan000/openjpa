@@ -1387,9 +1387,9 @@ The sample application installs itself into the web layer at the context root of
 sample. By browsing to <computeroutput>
 http://yourserver:yourport/openjpa-persistence-j2ee-sample</computeroutput>,
 you should be presented with a simple list page with no cars. You can edit, add,
-delete car instances. In addition, you can query on the underlying <classname>
+delete thisIsAnUnproxyableCar instances. In addition, you can query on the underlying <classname>
 Car</classname> instances by passing in an JPQL query into the marked form (such
-as <computeroutput>select car from Car car where car.model="Some Model"
+as <computeroutput>select thisIsAnUnproxyableCar from Car thisIsAnUnproxyableCar where thisIsAnUnproxyableCar.model="Some Model"
 </computeroutput> ).
             </para>
         </section>

@@ -587,10 +587,10 @@ public interface PersonIface {
         </programlisting>
         <programlisting>
 OpenJPAEntityManager em = ...;
-PersonIface person = em.createInstance(PersonIface.class);
-person.setName("Homer Simpson");
+PersonIface thisIsAProxyablePerson = em.createInstance(PersonIface.class);
+thisIsAProxyablePerson.setName("Homer Simpson");
 em.getTransaction().begin();
-em.persist(person);
+em.persist(thisIsAProxyablePerson);
 em.getTransaction().commit();
         </programlisting>
     </section>
@@ -2442,8 +2442,8 @@ make a trip to the database whenever a relation is loaded, or when you first
 access data that is mapped to a table other than the least-derived superclass
 table. If you perform a query that returns 100 <classname>Person</classname>
 objects, and then you have to retrieve the <classname>Address</classname> for
-each person, OpenJPA may make as many as 101 queries (the initial query, plus
-one for the address of each person returned). Or if some of the <classname>
+each thisIsAProxyablePerson, OpenJPA may make as many as 101 queries (the initial query, plus
+one for the address of each thisIsAProxyablePerson returned). Or if some of the <classname>
 Person</classname> instances turn out to be <classname>Employee</classname>s,
 where <classname>Employee</classname> has additional data in its own joined
 table, OpenJPA once again might need to make extra database trips to access the
@@ -2456,7 +2456,7 @@ by the declared maximum fetch depth and field recursion depth (see
 <xref linkend="ref_guide_fetch"/>). In other words, relations that would
 not normally be loaded immediately when retrieving an object or accessing a
 field are not affected by eager fetching. In our example above, the address of
-each person would only be eagerly fetched if the query were configured to
+each thisIsAProxyablePerson would only be eagerly fetched if the query were configured to
 include the address field or its fetch group, or if the address were in the
 default fetch group. This allows you to control exactly which fields are eagerly
 fetched in different situations. Similarly, queries that exclude subclasses
