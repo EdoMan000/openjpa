@@ -9,7 +9,6 @@ public class ThisIsAProxyablePerson {
     private final Random random = new Random(System.currentTimeMillis());
     private String name;
     private int age;
-
     public ThisIsAProxyablePerson() {
         // Public no-arg constructor to respect the rules
         if(random.nextInt()%2 == 0){
@@ -20,23 +19,18 @@ public class ThisIsAProxyablePerson {
             this.age = 32;
         }
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public int getAge() {
         return age;
     }
-
     public void setAge(int age) {
         this.age = age;
     }
-
     public void sayHello(){
         System.out.println("Hello, This is " + name + " and I'm " + age + " years old...");
         if(random.nextInt()%2 == 0){

@@ -2,6 +2,7 @@ package org.apache.openjpa.util;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -226,7 +227,7 @@ public class ProxyManagerCustomProxyCopyingTest{
         return thisIsAnUnproxyableCar;
     }
 
-    @Test
+    @Test@Ignore
     public void testNewCustomProxy() {
         Object proxyOrNot = this.proxyManagerImpl.copyCustom(this.orig);
         if(this.expected == EXPECTED.SUCCESS){

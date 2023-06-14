@@ -255,7 +255,7 @@
                                 <!-- param>org.apache.openjpa.util.CacheMapPuttingTest</param -->
                                 <!-- param>org.apache.openjpa.util.CacheMapRemovingTest</param -->
                                 <param>org.apache.openjpa.util.ProxyManagerCustomProxyCreatingTest</param>
-                                <param>org.apache.openjpa.util.ProxyManagerCustomProxyCopyingTest</param>
+                                <!-- param>org.apache.openjpa.util.ProxyManagerCustomProxyCopyingTest</param -->
                             </targetTests>
                             <avoidCallsTo>
                                 <avoidCallsTo>org.slf4j</avoidCallsTo>

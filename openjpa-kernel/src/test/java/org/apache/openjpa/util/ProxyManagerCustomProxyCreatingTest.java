@@ -56,14 +56,14 @@ public class ProxyManagerCustomProxyCreatingTest{
     /**
      * seeing the documentation automatic tracking of modifications my guess <br>
      * is that this parameter supposedly will turn that off... <br>
-     * for what we know though is just a boolean.<br>
      * <p>
+     * for what we know though is just a boolean so
      * Category partitioning for autoOff is: <br>
      * boolean autoOff: {true}, {false}<br>
      */
     private final boolean autoOff;
     private ProxyManagerImpl proxyManagerImpl;
-    private EXPECTED expected;
+    private final EXPECTED expected;
     private long timeInMillisForCalendar;
     private long timeForDate;
     private int nanosForTimeStamp;
@@ -286,7 +286,6 @@ public class ProxyManagerCustomProxyCreatingTest{
         }else{
             Assert.assertNull(proxyOrNot);
         }
-
     }
 
 }
