@@ -64,6 +64,7 @@ public class ProxyManagerCustomProxyCopyingTest{
     private Map<Integer, String> map;
     private SortedMap<Integer, String> sortedMap;
     private Class<Calendar> proxyOriginalClass;
+    private ThisIsAProxyablePerson person;
 
     private enum STATE_OF_ORIGIN {
         NULL,
@@ -100,21 +101,21 @@ public class ProxyManagerCustomProxyCopyingTest{
     @Parameterized.Parameters
     public static Collection<InputTuple> getInputTuples() {
         List<InputTuple> inputTupleList = new ArrayList<>();
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.NULL, EXPECTED.FAILURE));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.VALID, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.INVALID, EXPECTED.FAILURE));
-        //AFTER JACOCO REPORT:
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.PROXY, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.COLLECTION, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_SET, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.MAP, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_MAP, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.DATE, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.TIMESTAMP, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.CALENDAR, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.FINAL, EXPECTED.FAILURE));
-        //AFTER PIT REPORT --> no test cases added but added state to object and then verified them
-        // it's a pity that we can't use Mockito spy() and verify() because the calls are on other instances
+        //inputTupleList.add(new InputTuple(stateOfOrigin, expected));
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.NULL, EXPECTED.FAILURE));          // [1]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.VALID, EXPECTED.SUCCESS));         // [2]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.INVALID, EXPECTED.FAILURE));       // [3]
+        //AFTER JACOCO REPORT:                                                               //
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.PROXY, EXPECTED.SUCCESS));         // [4]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.COLLECTION, EXPECTED.SUCCESS));    // [5]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_SET, EXPECTED.SUCCESS));    // [6]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.MAP, EXPECTED.SUCCESS));           // [7]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_MAP, EXPECTED.SUCCESS));    // [8]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.DATE, EXPECTED.SUCCESS));          // [9]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.TIMESTAMP, EXPECTED.SUCCESS));     // [10]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.CALENDAR, EXPECTED.SUCCESS));      // [11]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.FINAL, EXPECTED.FAILURE));         // [12]
+        //AFTER PIT REPORT --> nothing to do... all mutation are already killed
         return inputTupleList;
     }
 
@@ -138,15 +139,14 @@ public class ProxyManagerCustomProxyCopyingTest{
     @Before
     public void setUpEachTime(){
         this.proxyManagerImpl = spy(new ProxyManagerImpl());
-        ThisIsAProxyablePerson thisIsAProxyablePerson;
         ThisIsAnUnproxyableCar thisIsAnUnproxyableCar;
         switch (this.stateOfOrig){
             case NULL:
                 this.orig = null;
                 break;
             case VALID:
-                thisIsAProxyablePerson = getPerson();
-                this.orig = thisIsAProxyablePerson;
+                this.person = getPerson();
+                this.orig = person;
                 break;
             case INVALID:
                 thisIsAnUnproxyableCar = getCar();
@@ -227,7 +227,7 @@ public class ProxyManagerCustomProxyCopyingTest{
         return thisIsAnUnproxyableCar;
     }
 
-    @Test@Ignore
+    @Test//@Ignore
     public void testNewCustomProxy() {
         Object proxyOrNot = this.proxyManagerImpl.copyCustom(this.orig);
         if(this.expected == EXPECTED.SUCCESS){
@@ -236,8 +236,11 @@ public class ProxyManagerCustomProxyCopyingTest{
             }else {
                 Assert.assertThat(proxyOrNot, instanceOf(this.orig.getClass()));
             }
-            //ADDITIONS AFTER PIT REPORT:
             switch (this.stateOfOrig){
+                case VALID:
+                    Assert.assertEquals(this.person.getName(), ((ThisIsAProxyablePerson)proxyOrNot).getName());
+                    Assert.assertEquals(this.person.getAge(), ((ThisIsAProxyablePerson)proxyOrNot).getAge());
+                    break;
                 case COLLECTION:
                     Assert.assertEquals(this.collection, proxyOrNot);
                     break;

@@ -99,7 +99,7 @@ public class CacheMapRemovingTest {
         }
     }
 
-    @Test@Ignore
+    @Test//@Ignore
     public void removingTest() {
         Object deletedVal = this.cacheMap.remove(this.key);
         if(this.stateOfKey == STATE_OF_KEY.EXISTENT) {

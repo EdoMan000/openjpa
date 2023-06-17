@@ -248,14 +248,14 @@
                         <version>${pitest.version}</version>
                         <configuration>
                             <targetClasses>
-                                <!-- param>org.apache.openjpa.util.CacheMap</param -->
+                                <param>org.apache.openjpa.util.CacheMap</param>
                                 <param>org.apache.openjpa.util.ProxyManagerImpl</param>
                             </targetClasses>
                             <targetTests>
-                                <!-- param>org.apache.openjpa.util.CacheMapPuttingTest</param -->
-                                <!-- param>org.apache.openjpa.util.CacheMapRemovingTest</param -->
+                                <param>org.apache.openjpa.util.CacheMapPuttingTest</param>
+                                <param>org.apache.openjpa.util.CacheMapRemovingTest</param>
                                 <param>org.apache.openjpa.util.ProxyManagerCustomProxyCreatingTest</param>
-                                <!-- param>org.apache.openjpa.util.ProxyManagerCustomProxyCopyingTest</param -->
+                                <param>org.apache.openjpa.util.ProxyManagerCustomProxyCopyingTest</param>
                             </targetTests>
                             <avoidCallsTo>
                                 <avoidCallsTo>org.slf4j</avoidCallsTo>

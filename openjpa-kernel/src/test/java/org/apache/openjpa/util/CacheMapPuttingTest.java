@@ -141,7 +141,7 @@ public class CacheMapPuttingTest {
         }
     }
 
-    @Test@Ignore
+    @Test//@Ignore
     public void puttingTest() {
         Object retVal = this.cacheMap.put(this.key, this.value);
         if(this.stateOfKey == STATE_OF_KEY.NOT_EXISTENT){

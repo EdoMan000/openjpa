@@ -2,6 +2,7 @@ package org.apache.openjpa.util;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -47,7 +48,7 @@ public class ProxyManagerCustomProxyCreatingTest{
      * it must be possible to fully copy an instance A by creating a new instance B<br>
      * and calling each of B's setters with the value from the corresponding getter on A.<br>
      */
-    private final STATE_OF_ORIGIN stateOfOrig;
+    private final STATE_OF_ORIG stateOfOrig;
     /**
      * Category partitioning for orig is: <br>
      * Object orig: {null}, {valid_obj}, {invalid_obj}<br>
@@ -72,7 +73,7 @@ public class ProxyManagerCustomProxyCreatingTest{
     private Map<Integer, String> map;
     private SortedMap<Integer, String> sortedMap;
 
-    private enum STATE_OF_ORIGIN {
+    private enum STATE_OF_ORIG {
         NULL,
         VALID,
         INVALID,
@@ -108,49 +109,50 @@ public class ProxyManagerCustomProxyCreatingTest{
     @Parameterized.Parameters
     public static Collection<InputTuple> getInputTuples() {
         List<InputTuple> inputTupleList = new ArrayList<>();
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.NULL, false, EXPECTED.FAILURE));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.NULL, true, EXPECTED.FAILURE));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.VALID, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.VALID, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.INVALID, false, EXPECTED.FAILURE));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.INVALID, true, EXPECTED.FAILURE));
-        //AFTER JACOCO REPORT:
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.PROXY, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.PROXY, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.COLLECTION, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.COLLECTION, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_SET, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_SET, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.MAP, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.MAP, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_MAP, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.SORTED_MAP, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.DATE, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.DATE, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.TIMESTAMP, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.TIMESTAMP, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.CALENDAR, false, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.CALENDAR, true, EXPECTED.SUCCESS));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.FINAL, false, EXPECTED.FAILURE));
-        inputTupleList.add(new InputTuple(STATE_OF_ORIGIN.FINAL, true, EXPECTED.FAILURE));
+        //inputTupleList.add(new InputTuple(stateOfOrig, autoOff, expected));
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.NULL, false, EXPECTED.FAILURE));           // [1]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.NULL, true, EXPECTED.FAILURE));            // [2]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.VALID, false, EXPECTED.SUCCESS));          // [3]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.VALID, true, EXPECTED.SUCCESS));           // [4]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.INVALID, false, EXPECTED.FAILURE));        // [5]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.INVALID, true, EXPECTED.FAILURE));         // [6]
+        //AFTER JACOCO REPORT:                                                                     //
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.PROXY, false, EXPECTED.SUCCESS));          // [7]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.PROXY, true, EXPECTED.SUCCESS));           // [8]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.COLLECTION, false, EXPECTED.SUCCESS));     // [9]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.COLLECTION, true, EXPECTED.SUCCESS));      // [10]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.SORTED_SET, false, EXPECTED.SUCCESS));     // [11]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.SORTED_SET, true, EXPECTED.SUCCESS));      // [12]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.MAP, false, EXPECTED.SUCCESS));            // [13]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.MAP, true, EXPECTED.SUCCESS));             // [14]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.SORTED_MAP, false, EXPECTED.SUCCESS));     // [15]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.SORTED_MAP, true, EXPECTED.SUCCESS));      // [16]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.DATE, false, EXPECTED.SUCCESS));           // [17]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.DATE, true, EXPECTED.SUCCESS));            // [18]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.TIMESTAMP, false, EXPECTED.SUCCESS));      // [19]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.TIMESTAMP, true, EXPECTED.SUCCESS));       // [20]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.CALENDAR, false, EXPECTED.SUCCESS));       // [21]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.CALENDAR, true, EXPECTED.SUCCESS));        // [22]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.FINAL, false, EXPECTED.FAILURE));          // [23]
+        inputTupleList.add(new InputTuple(STATE_OF_ORIG.FINAL, true, EXPECTED.FAILURE));           // [24]
         //AFTER PIT REPORT --> no test cases added but added state to object and then verified them
         // it's a pity that we can't use Mockito spy() and verify() because the calls are on other instances
         return inputTupleList;
     }
 
     private static final class InputTuple {
-        private final STATE_OF_ORIGIN stateOfOrig;
+        private final STATE_OF_ORIG stateOfOrig;
         private final boolean autoOff;
         private final EXPECTED expected;
 
-        private InputTuple(STATE_OF_ORIGIN stateOfOrig,
+        private InputTuple(STATE_OF_ORIG stateOfOrig,
                            boolean autoOff,
                            EXPECTED expected) {
             this.stateOfOrig = stateOfOrig;
             this.autoOff = autoOff;
             this.expected = expected;
         }
-        public STATE_OF_ORIGIN stateOfOrig() {
+        public STATE_OF_ORIG stateOfOrig() {
             return stateOfOrig;
         }
         public boolean autoOff() {
@@ -254,7 +256,7 @@ public class ProxyManagerCustomProxyCreatingTest{
         return thisIsAnUnproxyableCar;
     }
 
-    @Test
+    @Test//@Ignore
     public void testNewCustomProxy() {
         Object proxyOrNot = this.proxyManagerImpl.newCustomProxy(this.orig, this.autoOff);
         if(this.expected == EXPECTED.SUCCESS){
